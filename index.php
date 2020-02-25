@@ -1,11 +1,3 @@
-<?php
-    $ip_address = $_SERVER['REMOTE_ADDR'];
-	$ipArray = array("97.113.42.227", "97.113.233.233", "140.177.205.223");
-	if(!in_array($ip_address,$ipArray,true) ) {
-		header("Location: https://www.google.com/"); 
-	 }
-	$whereAreWe = "http://safetycowboy.com/web-development/elder-scrolls-test/";
-?>
 <!doctype html>
 <html>
 	<head>
