@@ -1,3 +1,11 @@
+<?php
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+	$ipArray = array("97.113.42.227", "97.113.233.233", "140.177.205.223");
+	if(!in_array($ip_address,$ipArray,true) ) {
+		header("Location: https://www.google.com/"); 
+	 }
+	$whereAreWe = "http://safetycowboy.com/web-development/elder-scrolls-test/";
+?>
 <!doctype html>
 <html>
 	<head>
@@ -135,13 +143,15 @@
 			.then(response=>{
 				let returnedCard = response.data.cards;
 				this.moreCards = returnedCard;
-				this.page ++
-				if (returnedCard.length >= this.pageSize) {					
+				this.page ++;
+				let resultsCount =returnedCard.length;
+				if (resultsCount >= this.pageSize) {					
 					for(let j=0; j < this.pageSize; j++){
 						this.cards.push(this.moreCards[j])
 					}						
-				}else if(returnedCard.length >0){
-					this.searchResults = returnedCard.length + " matches.";
+				}else if(resultsCount >0){
+					var plural = resultsCount===1 ? " match": " matches";
+					this.searchResults = returnedCard.length + plural;
 					for(let j=0; j < returnedCard.length; j++){
 						this.cards.push(this.moreCards[j])
 					}						
@@ -182,19 +192,9 @@
 		text-align: center;
 		color:#fff;
 	}
-	.searchBar{
+	.searchBar {
 		width:100%;
 		padding-bottom:1rem;
-	}
-	#foundCardsWrap {
-		width:100%;
-		background-color:#5F5E5E;
-		border-bottom:3px solid #fff;
-		margin-bottom:.5rem;
-		padding-bottom:.5rem;
-	}
-	#foundCardsWrap .foundCard{
-		float:left;
 	}
 	.fieldWrap {
 		float:left;
@@ -221,10 +221,6 @@
 		border-radius:.25rem;
 		padding:.5rem;
 		height:100%;
-	}
-	.foundCard .innerWrap {
-    	box-shadow: 0 0 3px 3px #0FF;
-		border:3px solid #f1f1f9;
 	}
 	.card .cardDescription {
 		background-color:#F4F1F1;
