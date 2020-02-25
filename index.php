@@ -71,6 +71,7 @@
 	  watch: {
 		bottom(bottom) {
 		  if (bottom) {
+			/* If we're searching, call that function, otherwise return all cards */
 			if(!this.searching){
 				this.addCards()				
 			}else{
@@ -143,22 +144,29 @@
 					}						
 				}else if(resultsCount >0){
 					var plural = resultsCount===1 ? " match": " matches";
-					this.searchResults = returnedCard.length + plural;
+					/* page check prevents matches count from re-setting with each scroll action*/
+					if(this.page < 3){
+						this.searchResults = returnedCard.length + plural;						
+					}
 					for(let j=0; j < returnedCard.length; j++){
 						this.cards.push(this.moreCards[j])
 					}						
 				}else{
 					//no results
-					this.searchResults = "No matches.";
+					if(this.page < 3){
+						this.searchResults = "No matches.";
+					}
 				}
 
 			} ) 
 		},
+		 /* handle condition where user performs more than one search in a row*/
 		 newSearch(){
 			this.cards = [];	
 			this.page =1;
 			this.searchResults = "";
 		},
+		  /* handle reset button */
 		  resetPage(){
 			  this.searching = false;
 			  this.cards = [];
